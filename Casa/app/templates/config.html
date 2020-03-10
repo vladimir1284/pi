@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Header -->
+<div class="w3-container" style="margin-top:60px" id="showcase">
+    <h1 class="w3-xxlarge w3-text-teal"><b>{{strings.configurations}}</b></h1>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    <hr style="width:50%;margin-block-start:0;border:3px solid teal" class="w3-round">
+</div>
+
+<!-- Rooms -->
+<h2><a id="container">{{strings.rooms}}</a></h2>
+<table class="w3-table w3-bordered w3-striped w3-border">
+    <tbody>
+        <tr>
+            <th style="width:28%">{{strings.label}}</th>
+            <th style="width:12%">
+                <a class="w3-btn w3-teal w3-content" href="/room_edit">New</a>
+            </th>
+        </tr>
+        {% for room in rooms %}
+        <tr>
+            <td>{{room.label}}</td>
+            <td>
+            <a class="w3-btn w3-teal" href="/room_edit/{{room.id}}">Edit</a>
+            <a class="w3-btn w3-teal" href="/room_del/{{room.id}}">Del</a>
+            </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Slaves -->
+<h2><a id="container">{{strings.slaves}}</a></h2>
+<h3><a id="container">{{strings.ports}}</a></h3>
+<table class="w3-table w3-bordered w3-striped w3-border">
+    <tbody>
+        <tr>
+            <th style="width:28%">{{strings.port}}</th>
+            <th>{{strings.baudrate}}</th>
+            <th>{{strings.configuration}}</th>
+            <th style="width:12%">
+                <a class="w3-btn w3-teal w3-content" href="/port_edit">New</a>
+            </th>
+        </tr>
+        {% for port in ports %}
+        <tr>
+            <td>{{port.port}}</td>
+            <td>{{port.baudrate}}</td>
+            <td>{{port.bytesize}}{{port.parity}}{{port.stopbits}}</td>
+            <td>
+            <a class="w3-btn w3-teal" href="/port_edit/{{port.id}}">Edit</a>
+            <a class="w3-btn w3-teal" href="/port_del/{{port.id}}">Del</a>
+            </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<h3><a id="container">{{strings.nodes}}</a></h3>
+<table class="w3-table w3-bordered w3-striped w3-border">
+    <tbody>
+        <tr>
+            <th style="width:28%">{{strings.label}}</th>
+            <th>{{strings.address}}</th>
+            <th>{{strings.port}}</th>
+            <th>{{strings.configurations}}</th>
+            <th>{{strings.variables}}</th>
+            <th style="width:12%">
+                <a class="w3-btn w3-teal w3-content" href="/slave_edit">New</a>
+            </th>
+        </tr>
+        {% for slave in slaves %}
+        <tr>
+            <td>{{slave.label}}</td>
+            <td>{{slave.slave_address}}</td>
+            <td>{{slave.port.port}}</td>
+            <td>{{slave.setupsAdr}}/{{slave.setupsCount}}</td>
+            <td>{{slave.variablesAdr}}/{{slave.variablesCount}}</td>
+            <td>
+            <a class="w3-btn w3-teal" href="/slave_edit/{{slave.id}}">Edit</a>
+            <a class="w3-btn w3-teal" href="/slave_del/{{slave.id}}">Del</a>
+            </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Indicators -->
+<h2><a id="container">{{strings.indicators}}</a></h2>
+<table class="w3-table w3-bordered w3-striped w3-border">
+    <tbody>
+        <tr>
+            <th style="width:28%">{{strings.label}}</th>
+            <th>{{strings.type}}</th>
+            <th>{{strings.room}}</th>
+            <th>{{strings.node}}</th>
+            <th>{{strings.address}}</th>
+            <th style="width:12%">
+                <a class="w3-btn w3-teal w3-content" href="/indicator_edit">New</a>
+            </th>
+        </tr>
+        {% for indicator in indicators %}
+        <tr>
+            <td>{{indicator.label}}</td>
+            <td>{{indicator.type}}</td>
+            <td>{{indicator.room.label}}</td>
+            <td>{{indicator.slave.label}}</td>
+            <td>{{indicator.address}}</td>
+            <td>
+            <a class="w3-btn w3-teal" href="/indicator_edit/{{indicator.id}}">Edit</a>
+            <a class="w3-btn w3-teal" href="/indicator_del/{{indicator.id}}">Del</a>
+            </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Header -->
+<div class="w3-container" style="margin-bottom:60px; margin-top:20px" id="showcase">
+    <hr style="width:50%;margin-block-start:0;border:3px solid teal" class="w3-round">
+</div>
+
+{% endblock %}

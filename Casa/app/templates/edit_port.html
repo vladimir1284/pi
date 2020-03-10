@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ strings.port }}</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.port.label }}<br>
+            {{ form.port() }}<br>
+            {% for error in form.port.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.baudrate.label }}<br>
+            {{ form.baudrate() }}<br>
+            {% for error in form.baudrate.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.databits.label }}<br>
+            {{ form.databits() }}<br>
+            {% for error in form.databits.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.parity.label }}<br>
+            {{ form.parity() }}<br>
+            {% for error in form.parity.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.stopbits.label }}<br>
+            {{ form.stopbits() }}<br>
+            {% for error in form.stopbits.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form> 
+{% endblock %}

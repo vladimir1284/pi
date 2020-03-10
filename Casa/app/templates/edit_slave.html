@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ strings.node }}</h1>
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+
+    <div class="w3-col m4 w3-margin-bottom">
+        <div class="w3-container">
+            <div class="w3-center">
+                <p>
+                    {{ form.label.label }}<br>
+                    {{ form.label() }}<br>
+                    {% for error in form.label.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+                <p>
+                    {{ form.port.label }}<br>
+                    {{ form.port() }}<br>
+                    {% for error in form.port.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+                <p>
+                    {{ form.slaveAdr.label }}<br>
+                    {{ form.slaveAdr() }}<br>
+                    {% for error in form.slaveAdr.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="w3-col m4 w3-margin-bottom">
+        <div class="w3-container">
+            <div class="w3-center">
+                <h3>{{ strings.configurations }}</h3>
+                <p>
+                    {{ form.setupsAdr.label }}<br>
+                    {{ form.setupsAdr() }}<br>
+                    {% for error in form.setupsAdr.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+                <p>
+                    {{ form.setupsCount.label }}<br>
+                    {{ form.setupsCount() }}<br>
+                    {% for error in form.setupsCount.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="w3-col m4 w3-margin-bottom">
+        <div class="w3-container">
+            <div class="w3-center">
+                <h3>{{ strings.variables }}</h3>
+                <p>
+                    {{ form.variablesAdr.label }}<br>
+                    {{ form.variablesAdr() }}<br>
+                    {% for error in form.variablesAdr.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+                <p>
+                    {{ form.variablesCount.label }}<br>
+                    {{ form.variablesCount() }}<br>
+                    {% for error in form.variablesCount.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+            </div>
+        </div>
+    </div>
+    <p>{{ form.submit() }}</p>
+</form>
+{% endblock %}

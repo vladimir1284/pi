@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+    <script src="/static/js/indicators.js"></script>
+    <script src="/objects.js"></script>
+{% endblock %}
+
+{% block body %}
+    onLoad="initPage()"
+{% endblock %}  
+
+{% block content %}
+<!-- Header -->
+<div class="w3-container" style="margin-top:60px" id="showcase">
+    <!-- <h1 class="w3-xxlarge"><b>Casa Inteligente</b></h1> -->
+    <h1 class="w3-xxlarge w3-text-teal"><b>{{room.label}}</b></h1>
+    <hr style="width:50%;margin-block-start:0;border:3px solid teal" class="w3-round">
+</div>
+
+
+<!-- Indicators -->
+<div class="w3-row-padding w3-grayscale">
+    {% for indicator in indicators %}
+     <!-- Menu -->
+    <div class="w3-overlay w3-centered " style="display:none" id={{"menu_"+indicator.id}}>
+        <form class="w3-teal w3-bar-block floatMenu">
+            <div class="w3-center w3-text-black w3-container w3-white">
+                {{indicator.label}}
+            </div>
+            {% for menu_item in indicator.menu_items %}
+                <div onclick={{indicator.id+"."+menu_item.handler}} class="w3-bar-item w3-button w3-hover-white">{{menu_item.label}} </div>
+            {% endfor %}
+        </form>
+    </div>
+    <!-- Indicator -->
+    <div class="w3-col m4 w3-margin-bottom" onclick={{indicator.id+".openMenu()"}}>
+        <div class="w3-light-grey">
+            <div class="w3-container">
+                <div class="w3-center">
+                    {{indicator.label}}
+                </div>
+                <div id={{"display_"+indicator.id}} class="w3-center">
+                </div>
+                <canvas id={{"canvas_"+indicator.id}} class="w3-col"></canvas>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+<div class="w3-container" id="msgBar">
+</div>
+
+{% endblock %}

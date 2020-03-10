@@ -1,0 +1,66 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/css/w3.css">
+    <style>
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: "Poppins", sans-serif
+        }
+
+        body {
+            font-size: 16px;
+        }
+
+        .floatMenu {
+            left: 25%;
+            top: 15%;
+            position: absolute
+        }
+    </style>
+    <title>
+        Casa Inteligente
+    </title>
+    <script src="/static/js/application.js"></script>
+    {% block scripts -%}{%- endblock %}
+</head>
+
+<body {%- block body -%}{%- endblock -%}">
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-teal w3-collapse w3-top w3-large w3-padding"
+        style="z-index:3;width:200px;font-weight:bold;" id="mySidebar"><br>
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft"
+            style="width:100%;font-size:22px">Cerrar Menú</a>
+        <div class="w3-container">
+            <img src="/static/img/logo_web.png" style="margin: 1em"></img>
+        </div>
+        <div class="w3-bar-block">
+        {% for room in rooms %}
+            <a href="/room/{{ room.id }}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">{{ room.label }}</a>
+        {% endfor %}
+        </div>
+    </nav>
+
+    <!-- Top menu on small screens -->
+    <header class="w3-container w3-top w3-hide-large w3-teal w3-xlarge w3-padding">
+        <a href="javascript:void(0)" class="w3-button w3-teal w3-margin-right" onclick="w3_open()">☰</a>
+        <span>PuntoINO</span>
+    </header>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu"
+        id="myOverlay"></div>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:240px;margin-right:40px">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+
+</html>
