@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<targets>
+    <!--
+        <target name="destino"> destino = Objeto que recibe la acción
+            <positions>
+                <position place="lugar"/> lugar= si se tienen varios objetos destinos ubicados en diferentes lugares
+            </positions>                         se pueden especificar los diferentes lugares.
+            <literals>
+                <literal text="texto"/> texto= diversas formas que se desean emplear para nombrar el objeto
+            </literals>                        de destino.
+            <states>
+                <state name="estado">    estado= Estado que se desea sea devuelto para este estado
+                    <literals>
+                        <literal text="texto"/> texto= Verbos (Imperativo 2da persona) a emplear para reconocer este
+                    </literals>                         estado en el objeto
+                </state>
+            </states>
+        </target>
+    -->
+    <target name="motor de la bomba">
+        <positions>
+            <position place="pozo"/>
+            <position place="techo"/>
+        </positions>
+        <literals>
+            <literal text="bomba"/>
+        </literals>
+        <states>
+            <state name="start">
+                <literals>
+                    <literal text="arranca"/>
+                    <literal text="pon"/>
+                    <literal text="conecta"/>
+                    <literal text="enciende"/>
+                    <literal text="pon en marcha"/>
+                </literals>
+            </state>
+            <state name="stop">
+                <literals>
+                    <literal text="apaga"/>
+                    <literal text="desconecta"/>
+                    <literal text="quita"/>
+                </literals>
+            </state>
+        </states>
+    </target>
+    <target name="lámpara">
+        <literals>
+            <literal text="luz"/>
+        </literals>
+        <positions>
+            <position place="sala"/>
+            <position place="comedor"/>
+        </positions>
+        <states>
+            <state name="start">
+                <literals>
+                    <literal text="enciende"/>
+                    <literal text="prende"/>
+                </literals>
+            </state>
+            <state name="stop">
+                <literals>
+                    <literal text="apaga"/>
+                </literals>
+            </state>
+        </states>
+    </target>
+    <target name="puerta del garaje">
+        <literals>
+            <literal text="garaje"/>
+        </literals>
+        <states>
+            <state name="open">
+                <literals>
+                    <literal text="abre"/>
+                    <literal text="pon en marcha"/>
+                </literals>
+            </state>
+            <state name="close">
+                <literals>
+                    <literal text="cierra"/>
+                </literals>
+            </state>
+        </states>
+    </target>
+</targets>

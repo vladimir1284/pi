@@ -25,8 +25,6 @@ class Slave:
     self.config_values = []
 
   def getConfig(self, adr):
-    if self.status == "NEW":
-      self.getConfigs()
     if self.status == "OK":
       return self.config_values[adr]
     else:
@@ -56,6 +54,7 @@ class Slave:
 
   def setConfigs(self):
     try:
+      #TODO Detener el hilo de actualización de las variables
       self.instrument.write_registers(self.setupsAdr, self.config_values)
       self.status = "OK"
     except IOError:

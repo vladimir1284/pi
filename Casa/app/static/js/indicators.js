@@ -7,23 +7,24 @@ function Indicator (id, label) {
     this.h = 0
     this.w = 0
     this.ctx = null
-    this.openMenu  = openMenu
+
+    this.openMenu  = closeMenu
     this.closeMenu = closeMenu
     this.configure = configure
 }
 
 function openMenu(){
-    ge("menu_"+this.id).style.display = "none"
-}
-
-function closeMenu(){
     ge("menu_"+this.id).style.display = "block"
 }
 
-function configure(){
-    
+function closeMenu(){
+    ge("menu_"+this.id).style.display = "none"
 }
 
+function configure(){
+    this.closeMenu()
+    window.open('/indicator_config/'+this.id, '_blank')
+}
 // -----------------------------------------------------------
 
 // ------------------- Tank -----------------------------
@@ -31,10 +32,11 @@ function Tank (id, label, min_level, capacity) {
     this.min_level = min_level
     this.capacity = capacity
     
-    this.updateValue = updateTankValue
-    
     this.base = Indicator
     this.base(id, label)
+
+    this.updateValue = updateTankValue
+    this.openMenu  = openMenu
 }
 Tank.prototype = new Indicator
 
@@ -58,6 +60,7 @@ function updateTankValue(value) {
         ge("display_"+this.id).innerHTML = "Valor incorrecto!!"
     }
 }
+
 // ------------------------------------------------------------------
 
 // ------------------- Lower Tank -----------------------------
@@ -139,13 +142,14 @@ function drawUpperTankTemplate() {
 function Pump (id, label) {
     this.state = 0
     this.animationStage = 0
-    
+        
+    this.base = Indicator
+    this.base(id, label)
+
     this.updateValue = updatePumpValue
     this.drawTemplate = drawPumpTemplate
     this.animate = animatePump
-    
-    this.base = Indicator
-    this.base(id, label)
+    this.openMenu  = openMenu
 }
 Pump.prototype = new Indicator
 
@@ -269,11 +273,12 @@ function drawPumpTemplate() {
 function Light (id, label) {
     this.state = 0
     
-    this.updateValue = updateLightValue
-    this.drawTemplate = drawLightTemplate
-    
     this.base = Indicator
     this.base(id, label)
+    
+    this.updateValue = updateLightValue
+    this.drawTemplate = drawLightTemplate
+    this.openMenu  = openMenu
 }
 Light.prototype = new Indicator
 

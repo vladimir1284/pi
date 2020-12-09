@@ -52,7 +52,7 @@ class IndicatorForm(FlaskForm):
     address = DecimalField(Strings.registersAdr, places = 0, 
                 validators=[NumberRange(min=0,max=65535,
                 message="Register addresses must be in the range [0,65535]")])
-    submit = SubmitField('Guardar')
+    submit = SubmitField(Strings.save)
 
 class TankForm(FlaskForm):
     min_level = DecimalField(Strings.min_level, places = 0,                  
@@ -62,8 +62,44 @@ class TankForm(FlaskForm):
     height = DecimalField(Strings.height, places = 0,
                         validators=[NumberRange(min=20,max=300)])
     gap = DecimalField(Strings.gap, places = 0,
-                        validators=[NumberRange(min=15,max=30)])
+                        validators=[NumberRange(min=15,max=100)])
     min = DecimalField(Strings.min, places = 0,
                         validators=[NumberRange(min=0,max=100)])
     restart = DecimalField(Strings.restart, places = 0,                  
                         validators=[NumberRange(min=0,max=100)])
+    submit = SubmitField(Strings.save)
+
+class PumpForm(FlaskForm):
+    start_choices = ((2,"2s"),(3,"3s"),(4,"4s"),(5,"5s"))
+    start_capacitor = SelectField(Strings.start_capacitor, choices = start_choices, 
+                                    coerce=int, validators=[DataRequired()]) 
+    max_time_on = DecimalField(Strings.max_time_on, places = 0,                  
+                        validators=[NumberRange(min=1,max=60)])
+    full_tank = DecimalField(Strings.full_tank, places = 0,                  
+                        validators=[NumberRange(min=30,max=100)])
+    submit = SubmitField(Strings.save)
+
+class LightForm(FlaskForm):
+    sleep_time = DecimalField(Strings.sleep_time, places = 0,                  
+                        validators=[NumberRange(min=0,max=900)])
+    smart_choices = ((1,"Activo"),
+                    (0,"Inactivo"))                
+    smart = SelectField(Strings.smart, choices = smart_choices, 
+                                    coerce=int) 
+    smart_delay = DecimalField(Strings.smart_delay, places = 0,                  
+                        validators=[NumberRange(min=10,max=30)])
+    init_delay = DecimalField(Strings.init_delay, places = 0,                  
+                        validators=[NumberRange(min=30,max=900)])
+    delay_increment = DecimalField(Strings.delay_increment, places = 0,                  
+                        validators=[NumberRange(min=30,max=900)])
+    luminosity_threshold = DecimalField(Strings.luminosity_threshold, places = 0,                  
+                        validators=[NumberRange(min=0,max=100)])
+    submit = SubmitField(Strings.save)
+
+    
+    
+    
+    
+    
+    
+    

@@ -63,7 +63,7 @@ def room_edit(room_id=""):
 
   if form.validate_on_submit():
     flash(Strings.modified+' {}'.format(form.label.data))
-    return redirect('/config')
+    return redirect(url_for('config',_anchor="Room"))
     
   return render_template('edit_room.html', title=Strings.room, form=form, strings=Strings, 
                           rooms = rooms)
@@ -81,7 +81,7 @@ def port_edit(port=""):
 
   if form.validate_on_submit():
     flash(Strings.modified+' {}'.format(form.port.data))
-    return redirect('/config')
+    return redirect(url_for('config',_anchor="Port"))
     
   return render_template('edit_port.html', title=Strings.port, form=form, 
                           strings=Strings, rooms = rooms)
@@ -106,7 +106,7 @@ def slave_edit(slave_id=""):
 
   if form.validate_on_submit():
     flash(Strings.modified+' {}'.format(form.label.data))
-    return redirect('/config')
+    return redirect(url_for('config',_anchor="Nodes"))
     
   return render_template('edit_slave.html', title=Strings.node, form=form, 
                           strings=Strings, rooms = rooms)
@@ -129,8 +129,45 @@ def indicator_edit(indicator_id=""):
 
   if form.validate_on_submit():
     flash(Strings.modified+' {}'.format(form.label.data))
-    print(form.type.data)
-    return redirect('/config')
+    return redirect(url_for('config',_anchor="Indicators"))
     
   return render_template('edit_indicator.html', title=Strings.node, form=form, 
                           strings=Strings, rooms = rooms)
+
+
+@app.route('/indicator_config/<indicator_id>', methods=['GET', 'POST'])
+def indicator_config(indicator_id):
+  for indicator  in indicators:
+    if indicator.id == indicator_id:
+      break
+
+  if indicator.type == "LowerTank" or indicator.type == "UpperTank" :
+    form = TankForm(min_level = indicator.min_level,
+                    capacity = indicator.capacity,
+                    height = indicator.getConfig("height"),
+                    gap = indicator.getConfig("gap"),
+                    min = indicator.getConfig("min"),
+                    restart = indicator.getConfig("restart"))
+    templateHtml = 'config_tank.html'
+
+  if indicator.type == "Pump":
+    form = PumpForm(start_capacitor = indicator.getConfig("start_capacitor"),
+                    max_time_on = indicator.getConfig("max_time_on"),
+                    full_tank = indicator.getConfig("full_tank"))
+    templateHtml = 'config_pump.html'
+
+  if indicator.type == "Light":
+    form = LightForm(sleep_time = indicator.getConfig("sleep_time"),
+                    smart = indicator.getConfig("smart"),
+                    smart_delay = indicator.getConfig("smart_delay"),
+                    init_delay = indicator.getConfig("init_delay"),
+                    delay_increment = indicator.getConfig("delay_increment"),
+                    luminosity_threshold = indicator.getConfig("luminosity_threshold"))
+    templateHtml = 'config_light.html'
+    
+  if form.validate_on_submit():
+    flash(Strings.modified+' {}'.format(indicator.label))
+    return redirect(url_for('config',_anchor="Indicators"))
+    
+  return render_template(templateHtml, title=Strings.node, form=form, 
+                          strings=Strings, rooms = rooms, indicator = indicator)
